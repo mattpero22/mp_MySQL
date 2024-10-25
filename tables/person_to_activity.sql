@@ -25,9 +25,3 @@ ALTER TABLE person_to_activity MODIFY is_active BOOLEAN DEFAULT 1;
 
 -- Set default value for the date_updated column
 ALTER TABLE person_to_activity MODIFY time_update DATETIME DEFAULT (CURRENT_TIMESTAMP());
-
--- First entry into mp's activity mapping table, beginning on 10/24/2024
-INSERT INTO person_to_activity (person_id, activity_id, activity_hours, notes)
-VALUES (1, 1, 1.25, 'set up the activity and person_to_activity tables for this database. Will be used to track the time spent on various activities, which will be added to the activity table.');
-
-SELECT p2a_id, person_id, activity_id, activity_hours FROM person_to_activity;
