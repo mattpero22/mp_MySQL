@@ -7,6 +7,7 @@ const express = require('express')
 const mysql = require('mysql2') // upgraded to mysql2 to connect to MySQL 8.0+ db
 
 // import API routers
+const activityRouter = require('./routes/activity');
 const personRouter = require('./routes/person');
 
 // init the express app
@@ -40,6 +41,7 @@ db.connect((err) => {
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
+app.use('/api/activity', activityRouter(db))
 app.use('/api/person', personRouter(db));
 
 
