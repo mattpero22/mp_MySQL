@@ -13,10 +13,6 @@ npm-debug.log*
 temp/
 tmp/
 
-# Database files
-*.sql
-*.sqlite
-
 # IDE and Editor files
 .vscode/
 .idea/

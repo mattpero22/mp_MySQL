@@ -11,17 +11,24 @@ CREATE TABLE activity (
     CONSTRAINT pk_activity PRIMARY KEY (activity_id)
 );
 
+
 -- Set default value for the date_created column
 ALTER TABLE activity MODIFY date_created DATE DEFAULT (CURDATE());
+
 
 -- Set default value for the date_updated column
 ALTER TABLE activity MODIFY date_updated DATE DEFAULT (CURDATE());
 
+
 -- Set default value for the is_active column
 ALTER TABLE activity MODIFY is_active BOOLEAN DEFAULT 0;
+
 
 -- Set default value for the date_updated column
 ALTER TABLE activity MODIFY time_update DATETIME DEFAULT (CURRENT_TIMESTAMP());
 
+
 -- adding a column for activity_date to allow user to upload activities at a later date, and to provide a day to link the action to for temporal data
 ALTER TABLE activity ADD activity_date DATE DEFAULT(CURDATE());
+-- after addition, updating existing entries (14 entries)
+-- UPDATE activity SET activity_date = date_created, date_updated = CURDATE();

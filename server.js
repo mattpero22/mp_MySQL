@@ -9,13 +9,14 @@ const mysql = require('mysql2') // upgraded to mysql2 to connect to MySQL 8.0+ d
 // import API routers
 const activityRouter = require('./routes/activity');
 const personRouter = require('./routes/person');
+const shinyHuntRouter = require('./routes/shiny_hunt');
 
 // init the express app
 const app = express()
 
 // mount middleware
 app.use(cors())
-
+app.use(express.json())
 
 // connect to mysql db
 // create .env with variables in the same directory as server.js
@@ -36,6 +37,14 @@ db.connect((err) => {
     }
 })
 
+db.query('SELECT 1', (err, results) => {
+    if (err) {
+      console.error('Test query failed:', err);
+    } else {
+      console.log('Test query succeeded:', results);
+    }
+  });
+
 
 // routes
 app.get('/', (req, res) => {
@@ -43,6 +52,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/activity', activityRouter(db))
 app.use('/api/person', personRouter(db));
+app.use('/api/shiny-hunt', shinyHuntRouter(db));
 
 
 // run express app on port 3000, or specify a port in .env

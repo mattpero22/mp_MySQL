@@ -23,3 +23,7 @@ ALTER TABLE person MODIFY is_active BOOLEAN DEFAULT 0;
 
 -- Adding a last_update column to store the timestamp of the last update (would have to be triggered via a SQL trigger or an API call)
 ALTER TABLE person MODIFY time_update DATETIME DEFAULT (CURRENT_TIMESTAMP());
+
+-- Adding a username and password column to the person table
+ALTER TABLE person ADD username VARCHAR(20);
+ALTER TABLE person ADD pw VARCHAR(255);
