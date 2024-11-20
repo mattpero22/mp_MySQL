@@ -21,8 +21,9 @@ module.exports = (db) => {
   });
 
   // GET - one hunt by shiny_hunt_id - ./api/shiny-hunt/:shiny_hunt_id
-  router.get('/', (req, res) => {
-    const query = `SELECT * FROM shiny_hunt WHERE shiny_hunt_id = ${req.body.shiny_hunt_id}`
+  router.get('/:shiny_hunt_id', (req, res) => {
+    const {shiny_hunt_id } = req.params
+    const query = `SELECT * FROM shiny_hunt WHERE shiny_hunt_id = ${shiny_hunt_id}`
     db.query(query, (err, results) => {
       if (err) {
         res.status(500).json({ error: err.message })
@@ -54,7 +55,32 @@ module.exports = (db) => {
             is_active, 
             time_update 
         ) VALUES (
-            '${req.body.ot}','${req.body.game}','${req.body.shiny_hunt_date}',${req.body.num_encounters},${req.body.num_shiny},'${req.body.locations}','${req.body.target_pokemon}',${req.body.target_encounters},CURDATE(),CURDATE(),true,NOW())`
+            '${req.body.ot}',
+            '${req.body.game}',
+            '${req.body.shiny_hunt_date}',
+            ${req.body.num_encounters},
+            ${req.body.num_shiny},
+            'UPPER(${req.body.locations})',
+            '${req.body.target_pokemon}',
+            ${req.body.target_encounters},
+            CURDATE(),
+            CURDATE(),
+            true,
+            NOW())`
+    db.query(query, (err, results) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(results);
+      }
+    });
+  })
+
+
+  // DELETE - delete a hunt by shiny_hunt_id - ./api/shiny-hunt/delete/:shiny_hunt_id
+  router.delete('/delete/:shiny_hunt_id', (req, res) => {
+    const {shiny_hunt_id } = req.params
+    const query = `DELETE FROM shiny_hunt WHERE shiny_hunt_id = ${shiny_hunt_id}`
     db.query(query, (err, results) => {
       if (err) {
         res.status(500).json({ error: err.message })
