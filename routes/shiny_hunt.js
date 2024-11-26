@@ -60,7 +60,7 @@ module.exports = (db) => {
             '${req.body.shiny_hunt_date}',
             ${req.body.num_encounters},
             ${req.body.num_shiny},
-            'UPPER(${req.body.locations})',
+            UPPER('${req.body.locations}'),
             '${req.body.target_pokemon}',
             ${req.body.target_encounters},
             CURDATE(),
